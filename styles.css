@@ -1,0 +1,17 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: black; */
+}
+.game-display {
+    /* padding: 5px; */
+    margin-top: 25px;
+    /* background-color: #FFF; */
+    border: 1px solid #000;
+}

@@ -1,0 +1,101 @@
+:root {
+    --arrow-size: 60px;
+    --button-color: #9c9c9c;
+}
+.buttons {
+    position: relative;
+    height: calc(var(--arrow-size) * 2.75);
+    width: calc(var(--arrow-size) * 2.75);
+    /* border: dashed 1px var(--button-color); */
+    /* border-radius: calc(var(--arrow-size) / 2); */
+}
+.button-up {
+    position: absolute;
+    top: 0px;
+    left: calc(50% - (var(--arrow-size) / 2));
+}
+.button-down {
+    position: absolute;
+    bottom: 0px;
+    left: calc(50% - (var(--arrow-size) / 2));
+}
+.button-left {
+    position: absolute;
+    left: 0px;
+    top: calc(50% - (var(--arrow-size) / 2));
+}
+.button-right {
+    position: absolute;
+    right: 0px;
+    top: calc(50% - (var(--arrow-size) / 2));
+}
+.button-up,
+.button-down {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: var(--arrow-size);
+}
+.button-left,
+.button-right {
+    display: flex;
+    align-items: center;
+    width: calc(var(--arrow-size) * 0.75);
+}
+.arrow-up,
+.arrow-left,
+.arrow-right,
+.arrow-down {
+    width: 0;
+    height: 0rem;
+}
+.rectangle-up,
+.rectangle-down {
+    width: calc(var(--arrow-size) / 2);
+    height: calc(var(--arrow-size) /4);
+    background-color: var(--button-color);
+}
+.rectangle-left,
+.rectangle-right {
+    width: calc(var(--arrow-size) / 4);
+    height: calc(var(--arrow-size) /2);
+    background-color: var(--button-color);
+}
+.arrow-up,
+.arrow-down {
+    border-right: calc(var(--arrow-size) / 2) solid transparent;
+    border-left: calc(var(--arrow-size) / 2) solid transparent;
+}
+.arrow-left,
+.arrow-right {
+    border-top: calc(var(--arrow-size) / 2) solid transparent;
+    border-bottom: calc(var(--arrow-size) / 2) solid transparent; 
+}
+.arrow-up{
+    border-bottom: calc(var(--arrow-size) / 2) solid var(--button-color);
+}
+.arrow-left {
+    order: 1;
+    border-right: calc(var(--arrow-size) / 2) solid var(--button-color);
+}
+.rectangle-left {
+    order: 1;
+}
+.arrow-right {
+    order: 1;
+    border-left: calc(var(--arrow-size) / 2) solid var(--button-color);
+}
+.arrow-down {
+    order: 1;
+    border-top: calc(var(--arrow-size) / 2) solid var(--button-color);
+}
+
+.center-circle {
+    position: absolute;
+    left: calc(50% - (var(--arrow-size) * .37.5));
+    top: calc(50% - (var(--arrow-size) * .37.5));
+    width: calc(var(--arrow-size) * .75);
+    height: calc(var(--arrow-size) * .75);
+    border-radius: 50%;
+    background-color: var(--button-color);
+}
