@@ -14,19 +14,15 @@ window.addEventListener('keyup', moveWithKeys);
 function movePlayer () {
     let map = convertMapToArray(maps[level]);
     if (giftPosition.x == playerPosition.x && giftPosition.y == playerPosition.y) {
-        level += 1;
-        startGame();
+        levelWon();
+    } else if (map[playerPosition.y - 1][playerPosition.x - 1] === 'X') {
+        levelLost()
+    } else {
+        const x = getX('PLAYER', playerPosition.x);
+        const y = getY('PLAYER', playerPosition.y);
+    
+        game.fillText(emojis['PLAYER'], x, y);
     }
-    if (map[playerPosition.y - 1][playerPosition.x - 1] === 'X') {
-        console.log('Colisión');
-    }
-
-    const x = getX('PLAYER', playerPosition.x);
-    const y = getY('PLAYER', playerPosition.y);
-
-    game.fillText(emojis['PLAYER'], x, y);
-
-    console.log(playerPosition, giftPosition);
 }
 
 const keyCodes = {

@@ -7,12 +7,17 @@ window.addEventListener('resize', setCanvasSize);
 let canvasSize;
 let elementSize;
 let level = 0;
+let lives = 3;
 
 const playerPosition = {
     x: undefined,
     y: undefined,
 }
 const giftPosition = {
+    x: undefined,
+    y: undefined,
+}
+const doorPosition = {
     x: undefined,
     y: undefined,
 }
@@ -34,11 +39,49 @@ function startGame () {
             } else if (col === 'I') {
                 giftPosition.x = colI + 1;
                 giftPosition.y = rowI + 1;
+            } else if (col === 'O') {
+                doorPosition.x = colI + 1;
+                doorPosition.y = rowI + 1;
             }
             game.fillText(emoji, x, y);
         });
     });
     movePlayer();
+    gridCanvas();
+}
+
+function levelWon () {
+    if (level === (maps.length - 1)) {
+        console.log('Nunca olvides la maravillosa mujer que eres 💖');
+        level = 0;
+        playerPosition.x = undefined;
+        playerPosition.y = undefined;
+        startGame;
+    } else {
+        level++;
+        startGame();
+    }
+}
+
+function levelLost () {
+    if (lives === 0) {
+        console.log('Ni modo manito');
+        playerPosition.x = undefined;
+        playerPosition.y = undefined;
+        level = 0;
+        lives = 3
+    } else {
+        const x = getX('BOMB_COLLISION', playerPosition.x);
+        const y = getY('BOMB_COLLISION', playerPosition.y);
+    
+        playerPosition.x = doorPosition.x;
+        playerPosition.y = doorPosition.y;
+
+        game.fillText(emojis['BOMB_COLLISION'], x, y);
+        lives--;
+
+        console.log(lives);
+    }
 }
 
 function getX (character, position) {
@@ -50,6 +93,8 @@ function getX (character, position) {
         return (elementSize * position) + (elementSize * 0.05);
     } else if (character === 'PLAYER') {
         return (elementSize * position) + (elementSize * 0.15);
+    } else if (character === 'BOMB_COLLISION') {
+        return (elementSize * position) + (elementSize * 0.175);
     }
 }
 
@@ -62,6 +107,8 @@ function getY (character, position) {
         return (elementSize * position) - (elementSize * 0.2);
     } else if (character === 'PLAYER') {
         return (elementSize * position) - (elementSize * 0.15);
+    } else if (character === 'BOMB_COLLISION') {
+        return (elementSize * position) - (elementSize * 0.175);
     }
 }
 
