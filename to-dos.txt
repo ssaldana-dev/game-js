@@ -1,1 +1,2 @@
 - Hacer que los botones se muevan cuando se da click.
+- Hacer el juego responsive.

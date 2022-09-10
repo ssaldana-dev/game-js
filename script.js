@@ -6,20 +6,39 @@ window.addEventListener('resize', setCanvasSize);
 
 let canvasSize;
 let elementSize;
+let level = 0;
+
+const playerPosition = {
+    x: undefined,
+    y: undefined,
+}
+const giftPosition = {
+    x: undefined,
+    y: undefined,
+}
 
 function startGame () {
-    let map = convertMapToArray(maps[0]);
+    clearMap();
+    let map = convertMapToArray(maps[level]);
     map.forEach((row, rowI) => {
         row.forEach((col, colI) => {
             const emoji = emojis[col];
             const x = getX(col, colI + 1);
             const y = getY(col, rowI + 1);
 
+            if (col === 'O') {
+                if (!playerPosition.x && !playerPosition.y) {
+                    playerPosition.x = colI + 1;
+                    playerPosition.y = rowI + 1;
+                }
+            } else if (col === 'I') {
+                giftPosition.x = colI + 1;
+                giftPosition.y = rowI + 1;
+            }
             game.fillText(emoji, x, y);
         });
     });
-
-    // gridCanvas();
+    movePlayer();
 }
 
 function getX (character, position) {
@@ -28,7 +47,9 @@ function getX (character, position) {
     } else if (character === 'I') {
         return (elementSize * position) + (elementSize * 0.1);
     } else if (character === 'O') {
-        return (elementSize * position) + (elementSize * 0.0333333333333333);
+        return (elementSize * position) + (elementSize * 0.05);
+    } else if (character === 'PLAYER') {
+        return (elementSize * position) + (elementSize * 0.15);
     }
 }
 
@@ -39,6 +60,8 @@ function getY (character, position) {
         return (elementSize * position) - (elementSize * 0.2);
     } else if (character === 'O') {
         return (elementSize * position) - (elementSize * 0.2);
+    } else if (character === 'PLAYER') {
+        return (elementSize * position) - (elementSize * 0.15);
     }
 }
 
@@ -64,7 +87,9 @@ function convertMapToArray (array) {
     return rows.map((row) => row.trim().split(''));
 }
 
-convertMapToArray(maps[0]);
+function clearMap () {
+    game.clearRect(0, 0, canvasSize, canvasSize);
+}
 
 function gridCanvas () {
     for (let i = 1; i <= 9; i++) {
