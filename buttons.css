@@ -6,6 +6,7 @@
     position: relative;
     height: calc(var(--arrow-size) * 2.75);
     width: calc(var(--arrow-size) * 2.75);
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
     /* border: dashed 1px var(--button-color); */
     /* border-radius: calc(var(--arrow-size) / 2); */
 }
@@ -13,21 +14,25 @@
     position: absolute;
     top: 0px;
     left: calc(50% - (var(--arrow-size) / 2));
+    cursor: pointer;
 }
 .button-down {
     position: absolute;
     bottom: 0px;
     left: calc(50% - (var(--arrow-size) / 2));
+    cursor: pointer;
 }
 .button-left {
     position: absolute;
     left: 0px;
     top: calc(50% - (var(--arrow-size) / 2));
+    cursor: pointer;
 }
 .button-right {
     position: absolute;
     right: 0px;
     top: calc(50% - (var(--arrow-size) / 2));
+    cursor: pointer;
 }
 .button-up,
 .button-down {

@@ -1,3 +1,8 @@
+const mainScreen = document.querySelector('#screen');
+const gameScreen = document.querySelector('#game-display');
+const userInterface = document.querySelector('#user-interface');
+const gameData = document.querySelector('#game-data')
+
 const buttonUp = document.querySelector('#button-up');
 const buttonRight = document.querySelector('#button-right');
 const buttonLeft = document.querySelector('#button-left');
@@ -8,8 +13,48 @@ buttonRight.addEventListener('click', moveRight);
 buttonLeft.addEventListener('click', moveLeft);
 buttonDown.addEventListener('click', moveDown);
 
-
+window.addEventListener('load', setGameSize);
+window.addEventListener('resize', setGameSize);
 window.addEventListener('keyup', moveWithKeys);
+window.addEventListener('orientationchange', setGameSize);
+
+function setGameSize () {
+    if (window.innerHeight > window.innerWidth) {
+        if (mainScreen.classList.contains('main--vertical')) {
+        } else {
+            mainScreen.classList.add('main--vertical');
+            gameScreen.classList.add('game-display--vertical');
+            gameScreen.classList.remove('game-display--full');
+            userInterface.classList.add('user-interface--vertical');
+            gameData.classList.add('game-data--vertical');
+        }
+        canvasSize = gameScreen.clientWidth - 2;
+    } else {
+        if(!mainScreen.classList.contains('main--vertical')) {
+        } else {
+            mainScreen.classList.remove('main--vertical');
+            gameScreen.classList.remove('game-display--vertical');
+            userInterface.classList.remove('user-interface--vertical');
+            gameData.classList.remove('game-data--vertical');
+        }
+        if (window.innerWidth > (window.innerHeight * 1.5)) {
+            gameScreen.classList.add('game-display--full');
+        } else {
+            gameScreen.classList.remove('game-display--full');
+        }
+        canvasSize = gameScreen.clientHeight;
+    }
+
+    elementSize = canvasSize / 10;
+
+    canvas.setAttribute('width', canvasSize + 'px');
+    canvas.setAttribute('height', canvasSize + 'px');
+
+    game.font = elementSize + 'px helvetica';
+    game.textAlign = 'right';
+
+    startGame();
+}
 
 function movePlayer () {
     let map = convertMapToArray(maps[level]);
@@ -25,20 +70,11 @@ function movePlayer () {
     }
 }
 
-const keyCodes = {
-    'up': 38,
-    'right': 39,
-    'left': 37,
-    'down': 40,
-}
-
 function moveWithKeys (event) {
-    const keyPressed = event.keyCode;
-
-    if (keyPressed == keyCodes.up) moveUp();
-    else if (keyPressed == keyCodes.right) moveRight();
-    else if (keyPressed == keyCodes.left) moveLeft();
-    else if (keyPressed == keyCodes.down) moveDown();
+    if (event.key == 'ArrowUp') moveUp();
+    else if (event.key == 'ArrowRight') moveRight();
+    else if (event.key == 'ArrowLeft') moveLeft();
+    else if (event.key == 'ArrowDown') moveDown();
 }
 
 function moveUp () {

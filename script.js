@@ -1,13 +1,11 @@
-const canvas = document.querySelector('#game');
+const canvas = document.querySelector('#game-canvas');
 const game = canvas.getContext('2d');
-
-window.addEventListener('load', setCanvasSize);
-window.addEventListener('resize', setCanvasSize);
+const livesDisplay = document.querySelector('#lives');
 
 let canvasSize;
 let elementSize;
 let level = 0;
-let lives = 3;
+let lives = 2;
 
 const playerPosition = {
     x: undefined,
@@ -23,6 +21,8 @@ const doorPosition = {
 }
 
 function startGame () {
+    setBackground();
+    showLives();
     clearMap();
     let map = convertMapToArray(maps[level]);
     map.forEach((row, rowI) => {
@@ -47,13 +47,33 @@ function startGame () {
         });
     });
     movePlayer();
-    gridCanvas();
+    // gridCanvas();
+}
+
+function setBackground () {
+    if(level === 0) {
+        canvas.style.backgroundImage = 'URL(./assets/background-1.jpg)';
+    } else if ( level === 1) {
+        canvas.style.backgroundImage = 'URL(./assets/background-2.jpg)';
+    } else if ( level === 2) {
+        canvas.style.backgroundImage = 'URL(./assets/background-3.jpg)';
+    } else if ( level === 3) {
+        canvas.style.backgroundImage = 'URL(./assets/background-4.jpg)';
+    }
+}
+
+function showLives () {
+    livesDisplay.innerHTML = '';
+    for (let i = 0; i <= lives; i++) {
+        livesDisplay.append(emojis['LIVE']);
+    }
 }
 
 function levelWon () {
     if (level === (maps.length - 1)) {
         console.log('Nunca olvides la maravillosa mujer que eres 💖');
         level = 0;
+        lives = 2;
         playerPosition.x = undefined;
         playerPosition.y = undefined;
         startGame;
@@ -66,10 +86,17 @@ function levelWon () {
 function levelLost () {
     if (lives === 0) {
         console.log('Ni modo manito');
+        const x = getX('BOMB_COLLISION', playerPosition.x);
+        const y = getY('BOMB_COLLISION', playerPosition.y);
+    
+        playerPosition.x = doorPosition.x;
+        playerPosition.y = doorPosition.y;
+
+        game.fillText(emojis['BOMB_COLLISION'], x, y);
         playerPosition.x = undefined;
         playerPosition.y = undefined;
         level = 0;
-        lives = 3
+        lives = 2;
     } else {
         const x = getX('BOMB_COLLISION', playerPosition.x);
         const y = getY('BOMB_COLLISION', playerPosition.y);
@@ -88,13 +115,13 @@ function getX (character, position) {
     if (character === 'X') {
         return (elementSize * position) + (elementSize * 0.25);
     } else if (character === 'I') {
-        return (elementSize * position) + (elementSize * 0.1);
+        return (elementSize * position) + (elementSize * 0.25);
     } else if (character === 'O') {
         return (elementSize * position) + (elementSize * 0.05);
     } else if (character === 'PLAYER') {
-        return (elementSize * position) + (elementSize * 0.15);
+        return (elementSize * position) + (elementSize * 0.25);
     } else if (character === 'BOMB_COLLISION') {
-        return (elementSize * position) + (elementSize * 0.175);
+        return (elementSize * position) + (elementSize * 0.3);
     }
 }
 
@@ -102,31 +129,14 @@ function getY (character, position) {
     if (character === 'X') {
         return (elementSize * position) - (elementSize * 0.2);
     } else if (character === 'I') {
-        return (elementSize * position) - (elementSize * 0.2);
+        return (elementSize * position) - (elementSize * 0.15);
     } else if (character === 'O') {
         return (elementSize * position) - (elementSize * 0.2);
     } else if (character === 'PLAYER') {
-        return (elementSize * position) - (elementSize * 0.15);
-    } else if (character === 'BOMB_COLLISION') {
         return (elementSize * position) - (elementSize * 0.175);
+    } else if (character === 'BOMB_COLLISION') {
+        return (elementSize * position) - (elementSize * 0.15);
     }
-}
-
-function setCanvasSize () {
-    if (window.innerWidth > (window.innerHeight)) {
-        canvasSize = window.innerHeight * 0.8;
-    } else {
-        canvasSize = window.innerWidth * 0.8;
-    }
-    elementSize = canvasSize / 10;
-
-    canvas.setAttribute('width', canvasSize + 'px');
-    canvas.setAttribute('height', canvasSize + 'px');
-
-    game.font = elementSize + 'px helvetica';
-    game.textAlign = 'right';
-
-    startGame();
 }
 
 function convertMapToArray (array) {

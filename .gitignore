@@ -1,0 +1,6 @@
+#Ignore images
+*.jpg
+*.png
+*.webp
+#Ignore assets directory
+/assets

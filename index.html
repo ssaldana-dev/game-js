@@ -9,31 +9,35 @@
     <link rel="stylesheet" href="/buttons.css">
 </head>
 <body>
-    <main>
-        <canvas class="game-display" id="game"></canvas>
+    <main id="screen" class="main--vertical">
+        <section id="game-display" class="game game-display--vertical">
+            <canvas id="game-canvas" class="game-canvas"></canvas>
+        </section>    
 
-        <section class="buttons">
-            <article id="button-up" class="button-up">
-                <figure class="arrow-up"></figure>
-                <figure class="rectangle-up"></figure>
-            </article>
-            <article id="button-left" class="button-left">
-                <figure class="arrow-left"></figure>
-                <figure class="rectangle-left"></figure>
-            </article>
-            <article id="button-right" class="button-right">
-                <figure class="arrow-right"></figure>
-                <figure class="rectangle-right"></figure>
-            </article>
-            <article id="button-down" class="button-down">
-                <figure class="arrow-down"></figure>
-                <figure class="rectangle-down"></figure>
-            </article>
-            <figure class="center-circle"></figure>
-        </section>
-    
-        <section>
-            <!-- To do -->
+        <section id="user-interface" class="user-interface user-interface--vertical">
+            <section id="game-data" class="game-data game-data--vertical">
+                <span id="lives" class="game-data__lives"></span>
+                <span class="game-data__time">05:25:15</span>
+            </section>
+            <section class="buttons">
+                <article id="button-up" class="button-up">
+                    <figure class="arrow-up"></figure>
+                    <figure class="rectangle-up"></figure>
+                </article>
+                <article id="button-left" class="button-left">
+                    <figure class="arrow-left"></figure>
+                    <figure class="rectangle-left"></figure>
+                </article>
+                <article id="button-right" class="button-right">
+                    <figure class="arrow-right"></figure>
+                    <figure class="rectangle-right"></figure>
+                </article>
+                <article id="button-down" class="button-down">
+                    <figure class="arrow-down"></figure>
+                    <figure class="rectangle-down"></figure>
+                </article>
+                <figure class="center-circle"></figure>
+            </section>
         </section>
     </main>
     <script src="./envents.js"></script>
