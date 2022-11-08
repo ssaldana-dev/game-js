@@ -97,6 +97,7 @@ function levelLost () {
         playerPosition.y = undefined;
         level = 0;
         lives = 2;
+        setBackground();
     } else {
         const x = getX('BOMB_COLLISION', playerPosition.x);
         const y = getY('BOMB_COLLISION', playerPosition.y);
