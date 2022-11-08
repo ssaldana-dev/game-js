@@ -21,7 +21,6 @@ const doorPosition = {
 }
 
 function startGame () {
-    setBackground();
     showLives();
     clearMap();
     let map = convertMapToArray(maps[level]);
@@ -52,13 +51,13 @@ function startGame () {
 
 function setBackground () {
     if(level === 0) {
-        canvas.style.backgroundImage = 'URL(./assets/background-1.jpg)';
+        canvas.style.backgroundImage = 'URL(https://i.imgur.com/3epCPAO.jpg)';
     } else if ( level === 1) {
-        canvas.style.backgroundImage = 'URL(./assets/background-2.jpg)';
+        canvas.style.backgroundImage = 'URL(https://i.imgur.com/LTpTdhB.jpg)';
     } else if ( level === 2) {
-        canvas.style.backgroundImage = 'URL(./assets/background-3.jpg)';
+        canvas.style.backgroundImage = 'URL(https://i.imgur.com/oybBNVH.jpg)';
     } else if ( level === 3) {
-        canvas.style.backgroundImage = 'URL(./assets/background-4.jpg)';
+        canvas.style.backgroundImage = 'URL(https://i.imgur.com/TTpPYvf.jpg)';
     }
 }
 
@@ -76,11 +75,12 @@ function levelWon () {
         lives = 2;
         playerPosition.x = undefined;
         playerPosition.y = undefined;
-        startGame;
+        startGame();
     } else {
         level++;
         startGame();
     }
+    setBackground()
 }
 
 function levelLost () {
@@ -163,3 +163,5 @@ function drawLine (xinicial, yinicial, xfinal, yfinal) {
     game.closePath();
     game.stroke();
 }
+
+setBackground();
